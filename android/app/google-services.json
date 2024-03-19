@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854310981691",
+    "project_id": "homebar-77343",
+    "storage_bucket": "homebar-77343.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854310981691:android:298d8c3d29f660344c8c1e",
+        "android_client_info": {
+          "package_name": "com.homebar.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8E7C9HlVSVY1yLRP2NTCcLdRZwPDKC4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

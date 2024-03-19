@@ -1,0 +1,33 @@
+name: flutter_application_homebar
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.4.0-157.0.dev <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  #Navigator
+  go_router: ^13.2.0
+  #firebase
+  firebase_core: ^2.25.4
+  #State Management
+  shared_preferences: ^2.2.2
+  provider: ^6.1.1
+  flutter_riverpod: ^2.4.10
+  #Widget
+  liquid_swipe: ^3.1.0
+  water_drop_nav_bar: ^2.2.0+5
+  lottie: ^3.1.0
+  #Font
+  font_awesome_flutter: ^10.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
