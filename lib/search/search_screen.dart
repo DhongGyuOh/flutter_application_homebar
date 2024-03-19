@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_homebar/models/cocktail.dart';
+import 'package:flutter_application_homebar/search/cocktaildetail_screen.dart';
 import 'package:flutter_application_homebar/search/search_view_model.dart';
-import 'package:flutter_application_homebar/search/searchdetail_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   static String routeName = "search";
@@ -15,10 +13,12 @@ class SearchScreen extends ConsumerStatefulWidget {
 }
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
-  void _onTap(Cocktail cocktail) {
+  void _onTap(BuildContext context, String cocktailName) {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => SearchDetailScreen(cocktail: cocktail),
+      builder: (context) => CocktailDetailScreen(cocktailname: cocktailName),
     ));
+    // context.pushNamed(CocktailDetailScreen.routeName,
+    //     pathParameters: {"cocktailname": cocktailName});
   }
 
   @override
@@ -37,7 +37,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         itemBuilder: (context, index) {
           for (int i = 0; i < cocktails.length;) {
             return GestureDetector(
-              onTap: () => _onTap(cocktails[index]),
+              onTap: () => _onTap(context, cocktails[index].name),
               child: Hero(
                 tag: cocktails[index],
                 child: Material(

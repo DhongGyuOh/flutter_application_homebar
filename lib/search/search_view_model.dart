@@ -11,94 +11,219 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
   final List<Cocktail> _listCocktail = [
     Cocktail(
         name: "Midori Shour",
-        detail: "Cocktail Detail",
+        detail:
+            "This is a refreshing cocktail made with Midori, tonic, lemon juice, and ice. It has a sweet and tangy flavor profile with a hint of citrus.",
         proof: 80.00,
         whisky: [
-          {Whisky(name: "Midori", proof: 80.00, detail: "Whisky Detail"): 20},
+          {
+            Whisky(
+                name: "Midori",
+                proof: 80.00,
+                detail:
+                    "Midori is a melon-flavored liqueur with a vibrant green color."): 20
+          },
         ],
         ingredient: [
-          {Ingredient(name: "Tonic", detail: "Whisky Detail"): 80},
-          {Ingredient(name: "Lemon Juice", detail: "Ingredient Detail"): 10.00},
-          {Ingredient(name: "Ice", detail: "Ingredient Detail"): 50.00},
+          {
+            Ingredient(
+                name: "Tonic",
+                detail:
+                    "Tonic water adds fizz and a slight bitterness to the cocktail."): 80
+          },
+          {
+            Ingredient(
+                    name: "Lemon Juice",
+                    detail:
+                        "Freshly squeezed lemon juice provides tartness and acidity."):
+                10.00
+          },
+          {
+            Ingredient(
+                name: "Ice",
+                detail: "Ice cubes are added to chill the cocktail."): 50.00
+          },
         ]),
     Cocktail(
         name: "Old Fashioned",
-        detail: "Cocktail Detail",
+        detail:
+            "This classic cocktail features bourbon, syrup, Angostura bitters, and an orange peel. It has a rich and smooth taste with a hint of sweetness.",
         proof: 80.00,
         whisky: [
-          {Whisky(name: "Bourbon", proof: 80.00, detail: "Whisky Detail"): 80},
+          {
+            Whisky(
+                name: "Bourbon",
+                proof: 80.00,
+                detail:
+                    "Bourbon is a type of American whiskey known for its distinctive sweet flavor profile."): 80
+          },
           {
             Whisky(
                 name: "Angostura bitters",
                 proof: 80.00,
-                detail: "Whisky Detail"): 20
+                detail:
+                    "Angostura bitters are a concentrated flavoring agent made from a variety of herbs and spices."): 20
           },
         ],
         ingredient: [
-          {Ingredient(name: "Syrup", detail: "Ingredient Detail"): 1.00},
-          {Ingredient(name: "Orange Peel", detail: "Ingredient Detail"): 1.00},
-          {Ingredient(name: "Ice", detail: "Ingredient Detail"): 50.00},
+          {
+            Ingredient(
+                    name: "Syrup",
+                    detail:
+                        "Simple syrup is used to add sweetness to the cocktail."):
+                1.00
+          },
+          {
+            Ingredient(
+                    name: "Orange Peel",
+                    detail:
+                        "A twist of orange peel is used as a garnish, adding citrus oils to the drink."):
+                1.00
+          },
+          {
+            Ingredient(
+                name: "Ice",
+                detail: "Ice cubes are added to chill the cocktail."): 50.00
+          },
         ]),
     Cocktail(
         name: "Manhattan",
-        detail: "Cocktail Detail",
+        detail:
+            "The Manhattan is a classic cocktail made with rye whiskey, sweet vermouth, and Angostura bitters. It has a bold and complex flavor profile with hints of spice and sweetness.",
         proof: 80.00,
         whisky: [
           {
-            Whisky(name: "Rye Whiskey", proof: 80.00, detail: "Whisky Detail"):
-                80
+            Whisky(
+                name: "Rye Whiskey",
+                proof: 80.00,
+                detail:
+                    "Rye whiskey has a spicy and robust flavor profile, making it a perfect base for cocktails."): 80
           },
           {
             Whisky(
                 name: "Sweet Vermouth",
                 proof: 80.00,
-                detail: "Whisky Detail"): 20
+                detail:
+                    "Sweet vermouth is a fortified wine with a sweet and herbal flavor."): 20
           },
           {
             Whisky(
                 name: "Angostura bitters",
                 proof: 80.00,
-                detail: "Whisky Detail"): 20
+                detail:
+                    "Angostura bitters add depth and complexity to the cocktail with their aromatic and bitter flavors."): 20
           },
         ],
         ingredient: [
-          {Ingredient(name: "Cherry", detail: "Ingredient Detail"): 1.00},
-          {Ingredient(name: "Ice", detail: "Ingredient Detail"): 50.00},
+          {
+            Ingredient(
+                    name: "Cherry",
+                    detail:
+                        "A maraschino cherry is used as a garnish, adding a pop of color and sweetness to the drink."):
+                1.00
+          },
+          {
+            Ingredient(
+                name: "Ice",
+                detail: "Ice cubes are added to chill the cocktail."): 50.00
+          },
         ]),
     Cocktail(
         name: "Whiskey Collins",
-        detail: "Cocktail Detail",
+        detail:
+            "The Whiskey Collins is a refreshing cocktail made with bourbon, Midori, lemon juice, syrup, tonic, and ice. It has a balanced flavor profile with notes of citrus and sweetness.",
         proof: 80.00,
         whisky: [
-          {Whisky(name: "Bourbon ", proof: 80.00, detail: "Whisky Detail"): 80},
-          {Whisky(name: "Midori", proof: 80.00, detail: "Whisky Detail"): 20},
+          {
+            Whisky(
+                name: "Bourbon ",
+                proof: 80.00,
+                detail:
+                    "Bourbon provides a rich and smooth base for the cocktail."): 80
+          },
+          {
+            Whisky(
+                name: "Midori",
+                proof: 80.00,
+                detail:
+                    "Midori adds a unique melon flavor and vibrant green color to the cocktail."): 20
+          },
         ],
         ingredient: [
-          {Ingredient(name: "Lemon Juice", detail: "Ingredient Detail"): 10.00},
-          {Ingredient(name: "Syrup", detail: "Ingredient Detail"): 1.00},
-          {Ingredient(name: "Tonic", detail: "Ingredient Detail"): 1.00},
-          {Ingredient(name: "Ice", detail: "Ingredient Detail"): 50.00},
+          {
+            Ingredient(
+                    name: "Lemon Juice",
+                    detail:
+                        "Freshly squeezed lemon juice provides tartness and acidity."):
+                10.00
+          },
+          {
+            Ingredient(
+                    name: "Syrup",
+                    detail:
+                        "Simple syrup is used to add sweetness to the cocktail."):
+                1.00
+          },
+          {
+            Ingredient(
+                    name: "Tonic",
+                    detail:
+                        "Tonic water adds fizz and a slight bitterness to the cocktail."):
+                1.00
+          },
+          {
+            Ingredient(
+                name: "Ice",
+                detail: "Ice cubes are added to chill the cocktail."): 50.00
+          },
         ]),
     Cocktail(
         name: "Scotch Highball",
-        detail: "Cocktail Detail",
+        detail:
+            "The Scotch Highball is a simple yet refreshing cocktail made with Scotch whiskey, tonic, lemon wedge, and ice. It has a crisp and slightly smoky flavor profile.",
         proof: 80.00,
         whisky: [
           {
             Whisky(
                 name: "Scotch whiskey",
                 proof: 80.00,
-                detail: "Whisky Detail"): 80
+                detail:
+                    "Scotch whiskey is a type of whiskey made in Scotland, known for its distinctive smoky and peaty flavor profile."): 80
           },
-          {Whisky(name: "Tonic", proof: 80.00, detail: "Whisky Detail"): 20},
+          {
+            Whisky(
+                name: "Tonic",
+                proof: 80.00,
+                detail:
+                    "Tonic water adds fizz and a slight bitterness to the cocktail."): 20
+          },
         ],
         ingredient: [
-          {Ingredient(name: "Lemon Wedge", detail: "Ingredient Detail"): 1.00},
-          {Ingredient(name: "Ice", detail: "Ingredient Detail"): 50.00},
+          {
+            Ingredient(
+                    name: "Lemon Wedge",
+                    detail:
+                        "A lemon wedge is used as a garnish, adding a citrusy aroma to the drink."):
+                1.00
+          },
+          {
+            Ingredient(
+                name: "Ice",
+                detail: "Ice cubes are added to chill the cocktail."): 50.00
+          },
         ]),
   ];
   @override
   FutureOr<List<Cocktail>> build() {
     return _listCocktail;
+  }
+
+  Cocktail? getCocktail(String cocktailName) {
+    // 주어진 칵테일 이름과 일치하는 칵테일을 찾습니다.
+    for (Cocktail cocktail in _listCocktail) {
+      if (cocktail.name == cocktailName) {
+        return cocktail;
+      }
+    }
+    return null;
   }
 }

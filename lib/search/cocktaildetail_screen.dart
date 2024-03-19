@@ -1,27 +1,30 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_homebar/constants/device_size.dart';
-import 'package:flutter_application_homebar/models/cocktail.dart';
-import 'package:flutter_application_homebar/models/whisky.dart';
+import 'package:flutter_application_homebar/search/search_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SearchDetailScreen extends ConsumerStatefulWidget {
+class CocktailDetailScreen extends ConsumerStatefulWidget {
   static String routeName = "searchdetails";
   static String routeURL = "searchdetails";
-  final Cocktail cocktail;
-  const SearchDetailScreen({super.key, required this.cocktail});
+  final String cocktailname;
+  const CocktailDetailScreen({super.key, required this.cocktailname});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _SearchDetailScreenState();
 }
 
-class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
+class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final cocktailInfo = widget.cocktail;
+    final cocktailInfo =
+        ref.read(searchProvider.notifier).getCocktail(widget.cocktailname)!;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: const Text("Cocktail Recipe"),
+      ),
       body: Hero(
         tag: cocktailInfo,
         child: Material(
@@ -41,6 +44,17 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         fit: BoxFit.cover,
                       ),
                     ),
+                    Container(
+                      color: Colors.black.withOpacity(0.3),
+                      width: DeviceSize.deviceWidth,
+                      height: DeviceSize.deviceHeight / 2,
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                        child: Container(
+                          color: Colors.black.withOpacity(0.1),
+                        ),
+                      ),
+                    ),
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 50),
@@ -48,6 +62,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
                             Text(
                               cocktailInfo.name,
                               style: const TextStyle(fontSize: 40),
@@ -56,7 +73,18 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                               cocktailInfo.proof.toString(),
                               style: const TextStyle(fontSize: 20),
                             ),
-                            Text(cocktailInfo.detail),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 80, left: 30, right: 30),
+                              child: Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15))),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text(cocktailInfo.detail)),
+                            ),
                           ],
                         ),
                       ),

@@ -74,8 +74,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   ];
   late final AnimationController _animationController = AnimationController(
       vsync: this, duration: const Duration(milliseconds: 1500));
-  late final Animation<double> _animation =
-      Tween(begin: 0.0, end: 1.0).animate(_animationController);
+  // late final Animation<double> _animation =
+  //     Tween(begin: 0.0, end: 1.0).animate(_animationController);
 
   void _onPageChangeCallback(int nextPage) {
     if (nextPage != _liquidController.currentPage) {

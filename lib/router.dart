@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_application_homebar/auth/interest_screen.dart';
 import 'package:flutter_application_homebar/auth/signup_screen.dart';
 import 'package:flutter_application_homebar/auth/login_screen.dart';
