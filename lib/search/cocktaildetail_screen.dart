@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_homebar/constants/device_size.dart';
 import 'package:flutter_application_homebar/search/search_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,7 +17,52 @@ class CocktailDetailScreen extends ConsumerStatefulWidget {
       _SearchDetailScreenState();
 }
 
-class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen> {
+class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 1000))
+    ..forward();
+  late final CurvedAnimation _curvedAnimation = CurvedAnimation(
+      parent: _animationController, curve: Curves.fastOutSlowIn);
+  late Animation<double> _animation =
+      Tween(begin: 0.0, end: 1.5).animate(_curvedAnimation);
+  late Animation<double> _animation2 =
+      Tween(begin: 0.0, end: 1.5).animate(_curvedAnimation);
+  late Animation<double> _animation3 =
+      Tween(begin: 0.0, end: 1.5).animate(_curvedAnimation);
+  @override
+  void initState() {
+    _animationController.addListener(() {});
+    _animationController.addStatusListener((status) {});
+    _animateValues();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _animateValues() {
+    final newBegin = _animation.value;
+    final random = Random();
+    final random2 = Random();
+    final random3 = Random();
+    final newEnd = random.nextDouble() * 2.0;
+    final newEnd2 = random2.nextDouble() * 2.0;
+    final newEnd3 = random3.nextDouble() * 2.0;
+    setState(() {
+      _animation =
+          Tween(begin: newBegin, end: newEnd).animate(_curvedAnimation);
+      _animation2 =
+          Tween(begin: newBegin, end: newEnd2).animate(_curvedAnimation);
+      _animation3 =
+          Tween(begin: newBegin, end: newEnd3).animate(_curvedAnimation);
+    });
+    _animationController.forward(from: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     final cocktailInfo =
@@ -57,14 +104,11 @@ class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen> {
                     ),
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 50),
+                        padding: const EdgeInsets.only(top: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
                             Text(
                               cocktailInfo.name,
                               style: const TextStyle(fontSize: 40),
@@ -73,9 +117,53 @@ class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen> {
                               cocktailInfo.proof.toString(),
                               style: const TextStyle(fontSize: 20),
                             ),
+                            Stack(
+                              children: [
+                                AnimatedBuilder(
+                                  animation: _animationController,
+                                  builder: (context, child) {
+                                    return CustomPaint(
+                                      painter: BalancePainter(
+                                        progress: _animation.value,
+                                        progress2: _animation2.value,
+                                        progress3: _animation3.value,
+                                      ),
+                                    );
+                                  },
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 50, right: 120),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Spicy",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.pink),
+                                      ),
+                                      Text(
+                                        "Sweet",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.lime),
+                                      ),
+                                      Text(
+                                        "Body",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.indigo),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 80, left: 30, right: 30),
+                                  top: 130, left: 30, right: 30),
                               child: Container(
                                   clipBehavior: Clip.hardEdge,
                                   decoration: BoxDecoration(
@@ -177,5 +265,52 @@ class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen> {
         ),
       ),
     );
+  }
+}
+
+class BalancePainter extends CustomPainter {
+  final double progress;
+  final double progress2;
+  final double progress3;
+  BalancePainter(
+      {required this.progress,
+      required this.progress2,
+      required this.progress3});
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center =
+        Offset(DeviceSize.deviceWidth / 2.5, DeviceSize.deviceHeight / 7);
+    const startingAngle = -0.5 * pi;
+    final redArcRect = Rect.fromCircle(center: center, radius: 70);
+    final redArcPaint = Paint()
+      ..color = Colors.pink
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 15;
+    canvas.drawArc(
+        redArcRect, startingAngle, progress * pi, false, redArcPaint);
+
+    final limeArcRect = Rect.fromCircle(center: center, radius: 50);
+    final limeArcPaint = Paint()
+      ..color = Colors.lime
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 15;
+    canvas.drawArc(
+        limeArcRect, startingAngle, progress2 * pi, false, limeArcPaint);
+
+    final indigoArcRect = Rect.fromCircle(center: center, radius: 30);
+    final indigoArcPaint = Paint()
+      ..color = Colors.indigo
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 15;
+    canvas.drawArc(
+        indigoArcRect, startingAngle, progress3 * pi, false, indigoArcPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
