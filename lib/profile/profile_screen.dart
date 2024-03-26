@@ -15,7 +15,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final Map<String, IconData> settings = {
     "Profile Edit": Icons.edit,
     "Your Favorites": Icons.favorite,
-    "Recent HomeBar": Icons.local_bar
+    "Recent HomeBar": Icons.local_bar,
+    "Share": Icons.share,
+    "Info": Icons.info_outline_rounded,
+    "Log Out": Icons.logout_sharp
   };
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 },
               ),
               ListView.builder(
-                itemCount: 3,
+                itemCount: settings.length,
                 itemBuilder: (context, index) {
                   final settingsName = settings.keys.elementAt(index);
                   final settingsIcon = settings[settingsName];
