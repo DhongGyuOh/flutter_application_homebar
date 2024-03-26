@@ -21,6 +21,8 @@ dependencies:
   liquid_swipe: ^3.1.0
   water_drop_nav_bar: ^2.2.0+5
   lottie: ^3.1.0
+  #animation
+  flutter_animate: ^4.5.0
   #Font
   font_awesome_flutter: ^10.7.0
 

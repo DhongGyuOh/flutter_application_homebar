@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_homebar/models/cocktail.dart';
 import 'package:flutter_application_homebar/search/cocktaildetail_screen.dart';
 import 'package:flutter_application_homebar/search/search_view_model.dart';
@@ -20,9 +21,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     ));
   }
 
+  final TextEditingController _textEditingController = TextEditingController();
+
   late List<Cocktail> cocktails = [];
   late List<Cocktail> filterdCocktails = [];
-  final TextEditingController _textEditingController = TextEditingController();
+  late bool searchToggle = false;
 
   void _onChanged(String text) {
     setState(() {
@@ -50,6 +53,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     super.dispose();
   }
 
+  void _onTapSearch() {
+    setState(() {
+      searchToggle = !searchToggle;
+      if (!searchToggle) {
+        _textEditingController.text = "";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     cocktails = ref.watch(searchProvider).value!;
@@ -61,11 +73,43 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       child: Scaffold(
         backgroundColor: Colors.pink,
         appBar: AppBar(
-          title: TextField(
-            onChanged: _onChanged,
-            controller: _textEditingController,
-            decoration: const InputDecoration(hintText: "Search Cocktail"),
-          ),
+          backgroundColor: Colors.deepOrange.shade400,
+          title: searchToggle
+              ? TextField(
+                  onChanged: _onChanged,
+                  controller: _textEditingController,
+                  decoration: InputDecoration(
+                      hintText: "Search Cocktail",
+                      suffixIcon: GestureDetector(
+                          onTap: _onTapSearch,
+                          child: const Icon(
+                            Icons.cancel,
+                            color: Colors.pink,
+                          )
+                              .animate(
+                                  target: searchToggle ? 1 : 0, delay: 200.ms)
+                              .scale(
+                                  begin: const Offset(0, 0),
+                                  end: const Offset(1, 1)))),
+                )
+                  .animate(target: searchToggle ? 1 : 0)
+                  .fade(begin: 0.0, end: 1.0)
+                  .flipV(begin: 1.0, end: 2.0, duration: 200.ms)
+              : GestureDetector(
+                  onTap: _onTapSearch,
+                  child: const Icon(
+                    Icons.search,
+                    color: Colors.lime,
+                    size: 32,
+                  )
+                      .animate(
+                        target: searchToggle ? 0 : 1,
+                      )
+                      .scale(
+                          begin: const Offset(0, 0),
+                          end: const Offset(1, 1),
+                          duration: 100.ms),
+                ),
         ),
         body: Center(
             child: GridView.builder(
