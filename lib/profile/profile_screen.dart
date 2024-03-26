@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_homebar/auth/login_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   static String routeName = "profile";
@@ -20,6 +22,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     "Info": Icons.info_outline_rounded,
     "Log Out": Icons.logout_sharp
   };
+  void _onTapSettings(String settingsName) {
+    switch (settingsName) {
+      case "Log Out":
+        context.goNamed(LoginScreen.routeName);
+        break;
+      default:
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,9 +86,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 itemBuilder: (context, index) {
                   final settingsName = settings.keys.elementAt(index);
                   final settingsIcon = settings[settingsName];
-                  return ListTile(
-                    title: Text(settingsName),
-                    leading: Icon(settingsIcon),
+                  return GestureDetector(
+                    onTap: () => _onTapSettings(settingsName),
+                    child: ListTile(
+                      title: Text(settingsName),
+                      leading: Icon(settingsIcon),
+                    ),
                   );
                 },
               ),
