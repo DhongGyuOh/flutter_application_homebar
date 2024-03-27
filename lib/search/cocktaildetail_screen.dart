@@ -1,9 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_homebar/constants/device_size.dart';
-import 'package:flutter_application_homebar/search/search_view_model.dart';
+import 'package:flutter_application_homebar/search/search_vm.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CocktailDetailScreen extends ConsumerStatefulWidget {

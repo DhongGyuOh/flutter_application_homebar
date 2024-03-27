@@ -1,4 +1,5 @@
 import 'package:flutter_application_homebar/auth/interest_screen.dart';
+import 'package:flutter_application_homebar/auth/login_vm.dart';
 import 'package:flutter_application_homebar/auth/signup_screen.dart';
 import 'package:flutter_application_homebar/auth/login_screen.dart';
 import 'package:flutter_application_homebar/navigation_screen.dart';
@@ -11,12 +12,12 @@ final routeProvider = Provider((ref) {
     initialLocation: "/home",
     //redirect: state 값에 따라 어느 route로 redirect 시킬지 정함
     redirect: (context, state) {
-      const isLogin = true;
-      if (!isLogin) {
+      final email = ref.watch(loginProvider).email;
+      if (email == '') {
         //state.matchedLocation: 현재 위치해있는 URL 경로, 쿼리파라미터 값
         if (state.matchedLocation != LoginScreen.routeURL &&
             state.matchedLocation != SignUpScreen.routeURL) {
-          return SignUpScreen.routeURL;
+          return LoginScreen.routeURL;
         }
       }
       return null;

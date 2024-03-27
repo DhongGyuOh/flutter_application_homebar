@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_homebar/auth/login_screen.dart';
+import 'package:flutter_application_homebar/auth/login_vm.dart';
+import 'package:flutter_application_homebar/repos/user_repos.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,6 +27,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   void _onTapSettings(String settingsName) {
     switch (settingsName) {
       case "Log Out":
+        ref.read(loginProvider.notifier).userLogout();
         context.goNamed(LoginScreen.routeName);
         break;
       default:

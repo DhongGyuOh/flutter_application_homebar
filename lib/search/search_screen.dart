@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_homebar/models/cocktail.dart';
 import 'package:flutter_application_homebar/search/cocktaildetail_screen.dart';
-import 'package:flutter_application_homebar/search/search_view_model.dart';
+import 'package:flutter_application_homebar/search/search_vm.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
