@@ -2,6 +2,7 @@ import 'package:flutter_application_homebar/auth/interest_screen.dart';
 import 'package:flutter_application_homebar/auth/login_vm.dart';
 import 'package:flutter_application_homebar/auth/signup_screen.dart';
 import 'package:flutter_application_homebar/auth/login_screen.dart';
+import 'package:flutter_application_homebar/home/screens/quiz_screen.dart';
 import 'package:flutter_application_homebar/navigation_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -48,6 +49,11 @@ final routeProvider = Provider((ref) {
         path: InterestScreen.routeURL,
         builder: (context, state) => const InterestScreen(),
       ),
+      GoRoute(
+        name: QuizScreen.routeName,
+        path: QuizScreen.routeURL,
+        builder: (context, state) => const QuizScreen(),
+      )
     ],
   );
 });

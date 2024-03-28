@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_homebar/auth/login_vm.dart';
 import 'package:flutter_application_homebar/auth/signup_screen.dart';
+import 'package:flutter_application_homebar/constants/device_size.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,13 +21,43 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       TextEditingController();
   late final TextEditingController _passwordEditingController =
       TextEditingController();
+  String email = "";
+  String password = "";
 
   String? _isEmailValid() {
-    return "This is not a valid email format";
+    email = _emailEditingController.text;
+    if (email.isEmpty) return null;
+    final regExp = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    if (!regExp.hasMatch(email)) {
+      return "Sorry, that is not a valid Email Address";
+    }
+    return null;
   }
 
   String? _isPasswordValid() {
+    if (_passwordEditingController.text.isEmpty) return null;
     return "Check your password";
+  }
+
+  @override
+  void initState() {
+    _emailEditingController.addListener(() {
+      setState(() {
+        email = _emailEditingController.text;
+      });
+    });
+    _passwordEditingController.addListener(() {
+      password = _passwordEditingController.text;
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailEditingController.dispose();
+    _passwordEditingController.dispose();
+    super.dispose();
   }
 
   void _onTapSignUp() async {
@@ -35,6 +67,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   void _onTapLogIn() async {
+    if (_emailEditingController.text.isEmpty || _isEmailValid() != null) return;
     ref.read(loginProvider.notifier).userLogin(
         _emailEditingController.text, _passwordEditingController.text);
     hideKeyboard();
@@ -66,10 +99,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 controller: _passwordEditingController,
                 decoration: InputDecoration(
                     hintText: "Password", errorText: _isPasswordValid()),
+                inputFormatters: [
+                  //한글 입력 막기
+                  FilteringTextInputFormatter.deny(RegExp(r'[ㄱ-ㅎㅏ-ㅣ가-힣]'))
+                ],
               ),
-              CupertinoButton(
-                onPressed: _onTapLogIn,
-                child: const Text("Log In"),
+              const SizedBox(
+                height: 50,
+              ),
+              SizedBox(
+                width: DeviceSize.deviceWidth,
+                child: CupertinoButton(
+                  color: Colors.lime,
+                  onPressed: _onTapLogIn,
+                  child: const Text("Log In"),
+                ),
               ),
               CupertinoButton(
                 onPressed: _onTapSignUp,

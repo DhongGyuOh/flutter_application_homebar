@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_homebar/home/screens/quiz_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:lottie/lottie.dart';
 
@@ -50,6 +52,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             "https://lottie.host/4085714a-8caf-49ce-ad11-a507fc302d92/7v5Z1u7Bez.json",
         pageTitle: "Home Bar Skills"),
   ];
+  void _onTapPage() {
+    switch (_liquidController.currentPage) {
+      case 3:
+        context.pushNamed(QuizScreen.routeName);
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +66,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       backgroundColor: Colors.pink,
       body: Stack(
         children: [
-          LiquidSwipe(
-            liquidController: _liquidController,
-            pages: pages,
-            waveType: WaveType.liquidReveal,
-            fullTransitionValue: 600,
-            positionSlideIcon: 0.8,
-            preferDragFromRevealedArea: true,
-            enableLoop: true,
-            ignoreUserGestureWhileAnimating: true,
-            enableSideReveal: true,
-            slideIconWidget: const Icon(Icons.keyboard_double_arrow_left_sharp),
+          GestureDetector(
+            onTap: _onTapPage,
+            child: LiquidSwipe(
+              liquidController: _liquidController,
+              pages: pages,
+              waveType: WaveType.liquidReveal,
+              fullTransitionValue: 600,
+              positionSlideIcon: 0.8,
+              preferDragFromRevealedArea: true,
+              enableLoop: true,
+              ignoreUserGestureWhileAnimating: true,
+              enableSideReveal: true,
+              slideIconWidget:
+                  const Icon(Icons.keyboard_double_arrow_left_sharp),
+            ),
           ),
         ],
       ),
