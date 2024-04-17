@@ -11,11 +11,40 @@ class QuizScreen extends ConsumerStatefulWidget {
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen> {
+  final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    _pageController.addListener(() {
+      if (_pageController.page == null) return;
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void changePage(int newPage) {}
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Quiz"),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Center(
+            child: PageView.builder(
+              itemBuilder: (context, index) => Container(
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(45)),
+                clipBehavior: Clip.hardEdge,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
