@@ -25,20 +25,20 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
         ],
         ingredient: [
           {
-            Ingredient(
+            Ingredients(
                 name: "Tonic",
                 detail:
                     "Tonic water adds fizz and a slight bitterness to the cocktail."): 80
           },
           {
-            Ingredient(
+            Ingredients(
                     name: "Lemon Juice",
                     detail:
                         "Freshly squeezed lemon juice provides tartness and acidity."):
                 10.00
           },
           {
-            Ingredient(
+            Ingredients(
                 name: "Ice",
                 detail: "Ice cubes are added to chill the cocktail."): 50.00
           },
@@ -66,21 +66,21 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
         ],
         ingredient: [
           {
-            Ingredient(
+            Ingredients(
                     name: "Syrup",
                     detail:
                         "Simple syrup is used to add sweetness to the cocktail."):
                 1.00
           },
           {
-            Ingredient(
+            Ingredients(
                     name: "Orange Peel",
                     detail:
                         "A twist of orange peel is used as a garnish, adding citrus oils to the drink."):
                 1.00
           },
           {
-            Ingredient(
+            Ingredients(
                 name: "Ice",
                 detail: "Ice cubes are added to chill the cocktail."): 50.00
           },
@@ -115,14 +115,14 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
         ],
         ingredient: [
           {
-            Ingredient(
+            Ingredients(
                     name: "Cherry",
                     detail:
                         "A maraschino cherry is used as a garnish, adding a pop of color and sweetness to the drink."):
                 1.00
           },
           {
-            Ingredient(
+            Ingredients(
                 name: "Ice",
                 detail: "Ice cubes are added to chill the cocktail."): 50.00
           },
@@ -150,28 +150,28 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
         ],
         ingredient: [
           {
-            Ingredient(
+            Ingredients(
                     name: "Lemon Juice",
                     detail:
                         "Freshly squeezed lemon juice provides tartness and acidity."):
                 10.00
           },
           {
-            Ingredient(
+            Ingredients(
                     name: "Syrup",
                     detail:
                         "Simple syrup is used to add sweetness to the cocktail."):
                 1.00
           },
           {
-            Ingredient(
+            Ingredients(
                     name: "Tonic",
                     detail:
                         "Tonic water adds fizz and a slight bitterness to the cocktail."):
                 1.00
           },
           {
-            Ingredient(
+            Ingredients(
                 name: "Ice",
                 detail: "Ice cubes are added to chill the cocktail."): 50.00
           },
@@ -199,14 +199,14 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
         ],
         ingredient: [
           {
-            Ingredient(
+            Ingredients(
                     name: "Lemon Wedge",
                     detail:
                         "A lemon wedge is used as a garnish, adding a citrusy aroma to the drink."):
                 1.00
           },
           {
-            Ingredient(
+            Ingredients(
                 name: "Ice",
                 detail: "Ice cubes are added to chill the cocktail."): 50.00
           },

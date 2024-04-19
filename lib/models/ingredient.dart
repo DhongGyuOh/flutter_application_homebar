@@ -1,21 +1,21 @@
-class Ingredient {
+class Ingredients {
   String name;
   String detail;
 
-  Ingredient({
+  Ingredients({
     required this.name,
     required this.detail,
   });
 }
 
-class ingredient {
+class Ingredient {
   int ingredientId;
   int categoryId;
   String name;
   String detail;
   String state;
   DateTime createdAt;
-  ingredient({
+  Ingredient({
     required this.ingredientId,
     required this.categoryId,
     required this.name,
@@ -24,13 +24,13 @@ class ingredient {
     required this.createdAt,
   });
 
-  ingredient.fromJson(Map<String, dynamic> json)
+  Ingredient.fromJson(Map<String, dynamic> json)
       : ingredientId = json["ingredient_id"],
         categoryId = json["category_id"],
         name = json["name"],
         detail = json["detail"],
         state = json["state"],
-        createdAt = json["created_at"];
+        createdAt = DateTime.parse(json["created_at"]); //DATETIME형으로 고침
 
   Map<String, dynamic> toJson() {
     return {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_homebar/home/screens/ingredients_screen.dart';
 import 'package:flutter_application_homebar/home/screens/quiz_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         pageColor: Colors.indigo,
         lottieURL:
             "https://lottie.host/67432040-babe-48c4-8d21-d8a42b4a37ad/dA899YfSVG.json",
-        pageTitle: "Drink Charts"),
+        pageTitle: "My Ingredients"),
     const LiquidPage(
         pageColor: Colors.purple,
         lottieURL:
@@ -56,6 +57,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     switch (_liquidController.currentPage) {
       case 3:
         context.pushNamed(QuizScreen.routeName);
+        break;
+      case 5:
+        context.pushNamed(IngredientScreen.routeName);
         break;
     }
   }

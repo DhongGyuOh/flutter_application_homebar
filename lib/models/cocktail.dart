@@ -6,7 +6,7 @@ class Cocktail {
   double proof;
   String detail;
   List<Map<Whisky, double>> whisky;
-  List<Map<Ingredient, double>> ingredient;
+  List<Map<Ingredients, double>> ingredient;
   Cocktail(
       {required this.name,
       required this.proof,
