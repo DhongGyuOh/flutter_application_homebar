@@ -23,7 +23,6 @@ class IngredientsViewModel extends AsyncNotifier<List<Ingredient>> {
   Future<List<Ingredient>> getIngredientList() async {
     Response response = await get(Uri.parse('$baseUrl/$getAllUrl'));
     if (response.statusCode == 200) {
-      print("getList 200 OK");
       final List ingredients = jsonDecode(utf8.decode(response.bodyBytes));
       //final List ingredients = jsonDecode(response.body);
       return ingredients.map((e) => Ingredient.fromJson(e)).toList();
@@ -33,11 +32,11 @@ class IngredientsViewModel extends AsyncNotifier<List<Ingredient>> {
   }
 
   //id로 재료 조회하기
-  Future<Ingredient> getIngredient(String id) async {
-    Response response = await get(Uri.parse('$baseUrl/$id'));
+  Future<Ingredient> getIngredient(int? id) async {
+    Response response = await get(Uri.parse('$baseUrl/select/$id'));
     if (response.statusCode == 200) {
-      print("getId 200 OK");
-      Ingredient ingredient = jsonDecode(utf8.decode(response.bodyBytes));
+      Ingredient ingredient =
+          Ingredient.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       return ingredient;
     } else {
       throw Exception(response.reasonPhrase);
@@ -48,7 +47,6 @@ class IngredientsViewModel extends AsyncNotifier<List<Ingredient>> {
   Future<int> getIngredientCount() async {
     Response response = await get(Uri.parse('$baseUrl/count'));
     if (response.statusCode == 200) {
-      print("getCount 200 OK");
       int count = jsonDecode(utf8.decode(response.bodyBytes));
       return count;
     } else {
@@ -73,10 +71,10 @@ class IngredientsViewModel extends AsyncNotifier<List<Ingredient>> {
   }
 
   ////Delete////
-  Future<void> deleteIngredient(int id) async {
+  Future<void> deleteIngredient(int? id) async {
     Response response = await delete(Uri.parse('$baseUrl/delete/$id'));
     if (response.statusCode == 200) {
-      print('Ingredient with id $id deleted successfully.');
+      print(response.body);
     } else {
       throw Exception('Failed to delete ingredient: ${response.statusCode}');
     }
