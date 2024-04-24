@@ -57,6 +57,7 @@ class IngredientsViewModel extends AsyncNotifier<List<Ingredient>> {
   ////POST////
   //재료 추가하기, 수정하기
   Future<dynamic> upsertIngredient(Ingredient ingredient) async {
+    state = const AsyncValue.loading();
     final Map<String, dynamic> requestBody = ingredient.toJson();
     Response response = await post(Uri.parse('$baseUrl/upsert'),
         headers: <String, String>{
@@ -64,6 +65,8 @@ class IngredientsViewModel extends AsyncNotifier<List<Ingredient>> {
         },
         body: jsonEncode(requestBody));
     if (response.statusCode == 200) {
+      List<Ingredient> ingList = await getIngredientList();
+      state = AsyncValue.data(ingList);
       return jsonDecode(response.body);
     } else {
       throw Exception('Failed to upsert ingredient: ${response.statusCode}');
@@ -72,9 +75,11 @@ class IngredientsViewModel extends AsyncNotifier<List<Ingredient>> {
 
   ////Delete////
   Future<void> deleteIngredient(int? id) async {
+    state = const AsyncValue.loading();
     Response response = await delete(Uri.parse('$baseUrl/delete/$id'));
     if (response.statusCode == 200) {
-      print(response.body);
+      List<Ingredient> ingList = await getIngredientList();
+      state = AsyncValue.data(ingList);
     } else {
       throw Exception('Failed to delete ingredient: ${response.statusCode}');
     }

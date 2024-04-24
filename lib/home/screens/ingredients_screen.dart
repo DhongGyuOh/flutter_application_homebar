@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_homebar/constants/device_size.dart';
 import 'package:flutter_application_homebar/home/screens/ingredients_vm.dart';
 import 'package:flutter_application_homebar/models/ingredient.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,146 +16,134 @@ class IngredientScreen extends ConsumerStatefulWidget {
 }
 
 class _IngredientScreenState extends ConsumerState<IngredientScreen> {
-  late Future<List<Ingredient>> ingredients;
+  final TextEditingController _nameEditingController = TextEditingController();
+  final TextEditingController _detailEditingController =
+      TextEditingController();
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
-  TextEditingController nameTextEditingController = TextEditingController();
-  TextEditingController detailTextEditingController = TextEditingController();
 
-  @override
-  void initState() {
-    ingredients = ref.read(ingredientProvider.notifier).getIngredientList();
-    super.initState();
+  void _onAddPressed() {
+    _nameEditingController.text = "";
+    _detailEditingController.text = "";
+    ingredientBottomSheet(null);
   }
 
-  void _onAddIngredient(BuildContext context) {
-    ingBottomSheet(context, 0);
-  }
-
-  Future<dynamic> ingBottomSheet(BuildContext context, int? id) async {
-    if (id != 0) {
-      Future<Ingredient> selectedIng =
-          ref.read(ingredientProvider.notifier).getIngredient(id);
-      Ingredient ing = await selectedIng;
-      nameTextEditingController.text = ing.name;
-      detailTextEditingController.text = ing.detail;
-    } else {
-      nameTextEditingController.text = "";
-      detailTextEditingController.text = "";
-    }
-
-    if (!context.mounted) return;
+  Future<dynamic> ingredientBottomSheet(int? id) {
     return showModalBottomSheet(
       isScrollControlled: true,
       showDragHandle: true,
       context: context,
       builder: (context) {
-        return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Form(
-                key: _globalKey,
-                child: Container(
-                  height: 500,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: Colors.pink),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: "삭자재명:",
-                            hintStyle: TextStyle(
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          cursorColor: Colors.pink,
-                          controller: nameTextEditingController,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.lime)),
-                              enabledBorder: OutlineInputBorder(),
-                              hintText: "식자재 설명:",
-                              hintStyle:
-                                  TextStyle(fontWeight: FontWeight.normal)),
-                          controller: detailTextEditingController,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CupertinoButton(
-                            color: Colors.lime,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 155),
-                            onPressed: _onTapInsert,
-                            child: const Text("입력하기"))
-                      ],
+        return Container(
+          width: DeviceSize.deviceWidth / 1.1,
+          height: DeviceSize.deviceHeight / 1.1,
+          decoration: const BoxDecoration(color: Colors.pink),
+          child: Form(
+              key: _globalKey,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _nameEditingController,
+                      textAlign: TextAlign.center,
+                      validator: (value) {
+                        if (value != null && value.isEmpty) {
+                          return "빈칸입니다.";
+                        } else {
+                          return null;
+                        }
+                      },
+                      style: const TextStyle(fontSize: 24),
+                      decoration: const InputDecoration(
+                          hintText: "재료명을 입력해주세요.", border: InputBorder.none),
                     ),
-                  ),
-                )));
+                    TextFormField(
+                      controller: _detailEditingController,
+                      validator: (value) {
+                        if (value != null && value.isEmpty) {
+                          return "빈칸입니다.";
+                        } else {
+                          return null;
+                        }
+                      },
+                      maxLines: 5,
+                      decoration: const InputDecoration(
+                          hintText: "설명을 작성해주세요.",
+                          border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CupertinoButton(
+                        color: Colors.orange,
+                        onPressed: () => _onTapUpsert(id),
+                        child: Text(
+                          id == null ? "Insert" : "Update",
+                          style: const TextStyle(
+                              fontSize: 24, color: Colors.white),
+                        ))
+                  ],
+                ),
+              )),
+        );
       },
     );
   }
 
-  void _onTapInsert() {
-    String ingredientName = nameTextEditingController.value.text;
-    String ingredientDetail = detailTextEditingController.value.text;
-    Ingredient ingredient = Ingredient(
-        //ingredientId: 21,
-        categoryId: 3,
-        name: ingredientName,
-        detail: ingredientDetail,
-        state: '1',
-        createdAt: DateTime.now());
-    ref.read(ingredientProvider.notifier).upsertIngredient(ingredient);
-    setState(() {});
-  }
-
-  void _onTapListTile(int? ingredientId) {
-    ingBottomSheet(context, ingredientId);
-  }
-
-  void _longPressListTile(int? ingredientId) {
+  void _onTapDelete(int? ingredientId) {
     ref.read(ingredientProvider.notifier).deleteIngredient(ingredientId);
     setState(() {});
   }
 
+  void _onTapUpsert(int? id) {
+    if (_globalKey.currentState!.validate()) {
+      Ingredient ingredient = Ingredient(
+          ingredientId: id,
+          categoryId: 3,
+          name: _nameEditingController.text,
+          detail: _detailEditingController.text,
+          state: '1',
+          createdAt: DateTime.now());
+      ref.read(ingredientProvider.notifier).upsertIngredient(ingredient);
+      Navigator.pop(context);
+    }
+  }
+
+  void _onTapFindById(int? ingredientId) async {
+    Ingredient selectedIng =
+        await ref.read(ingredientProvider.notifier).getIngredient(ingredientId);
+    _nameEditingController.text = selectedIng.name;
+    _detailEditingController.text = selectedIng.detail;
+    ingredientBottomSheet(selectedIng.ingredientId);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ingredients,
-      builder: (context, snapshot) {
-        return !snapshot.hasData
-            ? const Center(child: CircularProgressIndicator())
-            : Scaffold(
-                appBar: AppBar(
-                  title: const Text("재료들"),
-                  centerTitle: true,
-                  actions: [
-                    IconButton(
-                        onPressed: () => _onAddIngredient(context),
-                        icon: const Icon(
-                          Icons.add_box_rounded,
-                          size: 35,
-                        ))
-                  ],
-                ),
-                body: ListView.builder(
-                  itemCount: snapshot.data!.length,
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: const Text("재료 리스트"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add_box, size: 40),
+            onPressed: _onAddPressed,
+          )
+        ],
+      ),
+      body: Center(
+        child: Consumer(
+          builder: (context, watch, child) {
+            final asyncValue = ref.watch(ingredientProvider);
+            return asyncValue.when(
+              data: (data) {
+                // 데이터가 있는 경우 ListView.separated를 반환
+                return ListView.separated(
                   itemBuilder: (context, index) {
-                    final ingredient = snapshot.data![index];
+                    final ingredient = data[index];
                     return GestureDetector(
-                      onTap: () => _onTapListTile(ingredient.ingredientId),
-                      onLongPress: () =>
-                          _longPressListTile(ingredient.ingredientId),
+                      onTap: () => _onTapFindById(ingredient.ingredientId),
+                      onLongPress: () => _onTapDelete(ingredient.ingredientId),
                       child: ListTile(
                         title: Text(
                             '${ingredient.ingredientId}.${ingredient.name}'),
@@ -162,9 +151,22 @@ class _IngredientScreenState extends ConsumerState<IngredientScreen> {
                       ),
                     );
                   },
-                ),
-              );
-      },
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemCount: data.length,
+                );
+              },
+              error: (error, stackTrace) {
+                // 에러가 있는 경우 에러를 보여줌
+                return Text(error.toString());
+              },
+              loading: () {
+                // 로딩 중일 때 CircularProgressIndicator를 반환
+                return const CircularProgressIndicator();
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }
