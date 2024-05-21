@@ -16,8 +16,8 @@ class Ingredient {
   String state;
   DateTime createdAt;
   Ingredient({
-    this.ingredientId,
-    required this.categoryId, //옵셔널한 필드로 변경
+    this.ingredientId, //옵셔널한 필드로 변경
+    required this.categoryId,
     required this.name,
     required this.detail,
     required this.state,
@@ -25,7 +25,7 @@ class Ingredient {
   });
 
   Ingredient.fromJson(Map<String, dynamic> json)
-      : ingredientId = json["ingredient_id"],
+      : ingredientId = json["ingredientId"],
         categoryId = json["category_id"],
         name = json["name"],
         detail = json["detail"],
@@ -44,7 +44,7 @@ class Ingredient {
 
     // ingredientId가 null이 아닌 경우에만 추가
     if (ingredientId != null) {
-      data["ingredient_id"] = ingredientId;
+      data["ingredientId"] = ingredientId;
     }
 
     return data;
