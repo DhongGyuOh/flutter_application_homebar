@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter_application_homebar/models/cocktail.dart';
 import 'package:flutter_application_homebar/models/ingredient.dart';
 import 'package:flutter_application_homebar/models/whisky.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 
 final searchProvider = AsyncNotifierProvider<SearchViewModel, List<Cocktail>>(
     () => SearchViewModel());
@@ -212,6 +214,9 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
           },
         ]),
   ];
+
+  final String baseUrl = "http://172.17.7.232:8080/cocktails";
+
   @override
   FutureOr<List<Cocktail>> build() {
     return _listCocktail;
@@ -225,5 +230,15 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
       }
     }
     return null;
+  }
+
+  Future<List<CocktailsInfo>> getCocktailList() async {
+    Response response = await get(Uri.parse('$baseUrl/all'));
+    if (response.statusCode == 200) {
+      final List cocktails = jsonDecode(utf8.decode(response.bodyBytes));
+      return cocktails.map((e) => CocktailsInfo.fromJson(e)).toList();
+    } else {
+      throw Exception();
+    }
   }
 }

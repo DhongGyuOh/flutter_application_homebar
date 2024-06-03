@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_homebar/auth/login_screen.dart';
 import 'package:flutter_application_homebar/auth/login_vm.dart';
+import 'package:flutter_application_homebar/search/search_vm.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,6 +29,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       case "Log Out":
         ref.read(loginProvider.notifier).userLogout();
         context.goNamed(LoginScreen.routeName);
+        break;
+
+      case "Your Favorites":
+        ref.read(searchProvider.notifier).getCocktailList();
         break;
       default:
         break;
