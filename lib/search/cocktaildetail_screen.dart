@@ -86,7 +86,7 @@ class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen>
                       height: DeviceSize.deviceHeight / 2,
                       width: DeviceSize.deviceWidth,
                       child: Image.network(
-                        "https://source.unsplash.com/featured/?{cocktail},{wisky}",
+                        "https://loremflickr.com/200/350/cocktail",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -200,14 +200,13 @@ class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen>
                         padding: const EdgeInsets.all(10),
                         width: 100,
                         clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15)),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                           color: Colors.pink,
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              "https://source.unsplash.com/featured/?{bottle'$index'}{whisky'$index'}",
+                              "https://loremflickr.com/200/350/cocktail",
                             ),
                           ),
                         ),
@@ -241,15 +240,14 @@ class _SearchDetailScreenState extends ConsumerState<CocktailDetailScreen>
                         padding: const EdgeInsets.all(10),
                         width: 100,
                         clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              "https://source.unsplash.com/featured/?{ingredient},{recipe'$index'}",
+                              "https://loremflickr.com/200/350/cocktail",
                             ),
                           ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                           color: Colors.orange,
                         ),
                         child: Text(ingredientName),

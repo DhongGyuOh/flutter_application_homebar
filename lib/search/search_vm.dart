@@ -241,4 +241,16 @@ class SearchViewModel extends AsyncNotifier<List<Cocktail>> {
       throw Exception();
     }
   }
+
+  Future<CocktailsInfo> getCocktailInfo(String cocktailId) async {
+    Response response = await get(Uri.parse('$baseUrl/info/$cocktailId'));
+
+    if (response.statusCode == 200) {
+      final CocktailsInfo cocktailsInfo =
+          jsonDecode(utf8.decode(response.bodyBytes));
+      return cocktailsInfo;
+    } else {
+      throw Exception();
+    }
+  }
 }

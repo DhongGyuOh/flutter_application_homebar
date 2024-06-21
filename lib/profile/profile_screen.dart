@@ -56,7 +56,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   title: const Text("Profile"),
                   flexibleSpace: FlexibleSpaceBar(
                     background: Image.network(
-                      "https://source.unsplash.com/featured/?{music},{instruments}",
+                      "https://loremflickr.com/200/350/whisky,glass",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -81,7 +81,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 itemBuilder: (context, index) {
                   for (int i = 0; i < 13;) {
                     return Image.network(
-                      "https://source.unsplash.com/featured/?{music'$index'},{guitar'$index'}",
+                      "https://loremflickr.com/200/35${index % 9}/whisky,glass",
                       fit: BoxFit.cover,
                     );
                   }

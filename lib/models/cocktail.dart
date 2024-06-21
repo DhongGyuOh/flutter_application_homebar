@@ -44,38 +44,41 @@ class CocktailsInfo {
     required this.ingredientList,
   });
 
-  // CocktailsInfo.fromJson(Map<String, dynamic> json)
-  //     : cocktailId = json["cocktailId"],
-  //       name = json["name"],
-  //       nameEng = json["nameEng"],
-  //       detail = json["detail"],
-  //       sweetness = json["sweetness"].toDouble(),
-  //       acidity = json["acidity"].toDouble(),
-  //       strength = json["strength"].toDouble(),
-  //       state = json["state"],
-  //       mixtypeId = json["mixtype"],
-  //       mixtypeName = json["mixtypeName"],
-  //       ingredientList = (json["ingredientList"] as List)
-  //           .map((i) => IngredientInfo.fromJson(i))
-  //           .toList();
-
   factory CocktailsInfo.fromJson(Map<String, dynamic> json) {
     return CocktailsInfo(
       cocktailId: json['cocktailId'],
       name: json['name'],
-      nameEng: json['nameEng'],
+      nameEng: json['name_eng'],
       detail: json['detail'],
       sweetness: json['sweetness'].toDouble(),
       acidity: json['acidity'].toDouble(),
       strength: json['strength'].toDouble(),
       state: json['state'],
       created_at: DateTime.parse(json['created_at']),
-      mixtypeId: json['mixtypeId'],
-      mixtypeName: json['mixtypeName'],
-      ingredientList: (json['ingredientDTOList'] as List)
-          .map((i) => IngredientInfo.fromJson(i))
-          .toList(),
+      mixtypeId: json['mixtype_id'],
+
+      mixtypeName: json['mixtypeName'], //nullable로 표현했기 때문에 삼항연산자 안적어줌
+      ingredientList: json['ingredientDTOList'] != null
+          ? (json['ingredientDTOList'] as List)
+              .map((i) => IngredientInfo.fromJson(i))
+              .toList()
+          : null,
     );
+
+    // CocktailsInfo.fromJson(Map<String, dynamic> json)
+    //     : cocktailId = json["cocktailId"],
+    //       name = json["name"],
+    //       nameEng = json["nameEng"],
+    //       detail = json["detail"],
+    //       sweetness = json["sweetness"].toDouble(),
+    //       acidity = json["acidity"].toDouble(),
+    //       strength = json["strength"].toDouble(),
+    //       state = json["state"],
+    //       mixtypeId = json["mixtype"],
+    //       mixtypeName = json["mixtypeName"],
+    //       ingredientList = (json["ingredientList"] as List)
+    //           .map((i) => IngredientInfo.fromJson(i))
+    //           .toList();
   }
 
   Map<String, dynamic> toJson() {
