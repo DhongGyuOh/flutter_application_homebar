@@ -24,7 +24,7 @@ class CocktailsInfo {
   final double acidity;
   final double strength;
   final int state;
-  final DateTime created_at;
+  final DateTime createdAt;
   final int mixtypeId;
   final String? mixtypeName;
   final List<IngredientInfo>? ingredientList;
@@ -38,7 +38,7 @@ class CocktailsInfo {
     required this.acidity,
     required this.strength,
     required this.state,
-    required this.created_at,
+    required this.createdAt,
     required this.mixtypeId,
     required this.mixtypeName,
     required this.ingredientList,
@@ -48,14 +48,14 @@ class CocktailsInfo {
     return CocktailsInfo(
       cocktailId: json['cocktailId'],
       name: json['name'],
-      nameEng: json['name_eng'],
+      nameEng: json['nameEng'],
       detail: json['detail'],
       sweetness: json['sweetness'].toDouble(),
       acidity: json['acidity'].toDouble(),
       strength: json['strength'].toDouble(),
       state: json['state'],
-      created_at: DateTime.parse(json['created_at']),
-      mixtypeId: json['mixtype_id'],
+      createdAt: DateTime.parse(json['createdAt']),
+      mixtypeId: json['mixtypeId'],
 
       mixtypeName: json['mixtypeName'], //nullable로 표현했기 때문에 삼항연산자 안적어줌
       ingredientList: json['ingredientDTOList'] != null
@@ -91,6 +91,7 @@ class CocktailsInfo {
       'acidity': acidity,
       'strength': strength,
       'state': state,
+      'createdAt': createdAt,
       'mixtypeId': mixtypeId,
       'mixtypeName': mixtypeName,
       'ingredientList': ingredientList?.map((i) => i.toJson()).toList(),

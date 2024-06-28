@@ -36,7 +36,11 @@ class _CocktailListWidgetState extends ConsumerState<CocktailListWidget> {
             future: cocktailList,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return const CircularProgressIndicator();
+                return GestureDetector(
+                    onTap: () {
+                      ref.read(searchProvider.notifier).getCocktailList();
+                    },
+                    child: const CircularProgressIndicator());
               } else {
                 return GridView.builder(
                   itemCount: snapshot.data!.length,
